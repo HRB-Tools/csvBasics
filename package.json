@@ -1,0 +1,26 @@
+{
+  "name": "csvbasics",
+  "version": "1.0.0",
+  "description": "jUnify, just intelligent ### Finally! I did it! I finally ditched my pure JavaScript (and single file) approach for a much more sensible TypeScript and module one.   _Probably I'll reuse these modules a lot :)_",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "rollup": "^0.65.2",
+    "rollup-cli": "^1.0.9",
+    "typescript": "^3.3.3"
+  },
+  "scripts": {
+    "build": "rollup js/index.js --format iife --name myBundle --file build/bundle.js",
+    "test": "echo \"wenigstens funktioniert das!"
+  },
+  "author": "Nils Eidmann",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UKayeF/ijunify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/UKayeF/ijunify/issues"
+  },
+  "homepage": "https://github.com/UKayeF/ijunify#readme"
+}

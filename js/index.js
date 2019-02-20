@@ -2,6 +2,7 @@ import { fileresult } from './fileio';
 import { csvArray, resultArray } from './csv';
 import { filedownload } from './filedownload';
 import { colSwap } from './colswap';
+import { sollHaben } from "./sh";
 // Init when document is loaded
 document.onreadystatechange = function () {
     if (document.readyState == 'complete') {
@@ -20,6 +21,8 @@ let init = function () {
         text = fileresult();
         text.then(function (csvFile) {
             return resultArray(csvFile);
+        }).then(function (intermediateArr) {
+            return sollHaben(intermediateArr, 1, 0);
         }).then(function (resultArr) {
             return colSwap(resultArr, reverseMap);
         }).then(function (arr2d) {

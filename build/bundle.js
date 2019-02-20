@@ -70,7 +70,7 @@
             init();
         }
     };
-    const reverseMap = [1, -1, -1, -1, -1, -1, 0, 2, -1, 3, 4, -1, -1, 7];
+    const colMap = [6, 0, 7, 9, 10, -1, -1, 13]; // from Index => map[Index]
     let init = function () {
         let text;
         // Adds EventListeners to each item
@@ -80,7 +80,7 @@
             text.then(function (csvFile) {
                 return resultArray(csvFile);
             }).then(function (resultArr) {
-                return colSwap(resultArr, reverseMap);
+                return colSwap(resultArr, colMap);
             }).then(function (arr2d) {
                 return csvArray(arr2d);
             }).then(function (csvArr) {

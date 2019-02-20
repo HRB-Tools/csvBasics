@@ -11,7 +11,7 @@ document.onreadystatechange = function(){
 };
 
 const colMap : number[] = [6, 0, 7, 9, 10, -1, -1, 13] // from Index => map[Index]
-const reverseMap : number[] = [1, -1, -1, -1, -1, -1, 0, 2, -1, 3, 4, -1, -1, 7]
+// const reverseMap : number[] = [1, -1, -1, -1, -1, -1, 0, 2, -1, 3, 4, -1, -1, 7]
 const tagsSource : string[] = ['Sollkonto', 'Betrag', 'Habenkonto', 'Belegdatum', 'Belegnummer', 'Steuercode', 'Steuerart']
 const tagsTarget : string[] = ['Umsatz', 'Soll/Haben', 'leer', 'leer', 'leer', 'leer', 'Konto', 'Gegenkonto', 'leer', 'Belegdatum', 'Belegfeld 1', 'Belegfeld 2', 'leer', 'Buchungstext']
 
@@ -24,7 +24,7 @@ let init = function(){
         text.then(function(csvFile) {
             return resultArray(csvFile)
         }).then(function(resultArr) {
-            return colSwap(resultArr, reverseMap)
+            return colSwap(resultArr, colMap)
         }).then(function (arr2d) {
             return csvArray(arr2d)
         }).then(function(csvArr){

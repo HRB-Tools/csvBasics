@@ -10,9 +10,10 @@ document.onreadystatechange = function () {
     }
 };
 const colMap = [6, 0, 7, 9, 10, -1, -1, 13]; // from Index => map[Index]
-const reverseMap = [1, -1, -1, -1, -1, -1, 0, 2, -1, 3, 4, -1, -1, 7];
-const tagsSource = ['Sollkonto', 'Betrag', 'Habenkonto', 'Belegdatum', 'Belegnummer', 'Steuercode', 'Steuerart'];
+const reverseMap = [1, -1, -1, -1, -1, -1, 0, 2, -1, 3, 4, -1, -1, 7, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 8, 9];
+const tagsSource = ['Sollkonto', 'Betrag', 'Habenkonto', 'Belegdatum', 'Belegnummer', 'Steuercode', 'Steuerart', 'Kost 1', 'Kost 2'];
 const tagsTarget = ['Umsatz', 'Soll/Haben', 'leer', 'leer', 'leer', 'leer', 'Konto', 'Gegenkonto', 'leer', 'Belegdatum', 'Belegfeld 1', 'Belegfeld 2', 'leer', 'Buchungstext'];
+console.log(reverseMap.length);
 let init = function () {
     let text;
     // Adds EventListeners to each item

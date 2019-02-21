@@ -65,7 +65,7 @@
     }
 
     function sollHaben(arr, indexSH, indexUmsatz) {
-        for (let i = 0; i < arr.length; i++) {
+        for (let i = 2; i < arr.length; i++) {
             if (arr[i][indexSH] = 'S') {
                 arr[i][indexUmsatz] = '-' + arr[i][indexUmsatz];
             }
@@ -79,7 +79,8 @@
             init();
         }
     };
-    const reverseMap = [1, -1, -1, -1, -1, -1, 0, 2, -1, 3, 4, -1, -1, 7];
+    const reverseMap = [1, -1, -1, -1, -1, -1, 0, 2, -1, 3, 4, -1, -1, 7, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 8, 9];
+    console.log(reverseMap.length);
     let init = function () {
         let text;
         // Adds EventListeners to each item

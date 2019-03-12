@@ -12,7 +12,7 @@ document.onreadystatechange = function(){
 };
 
 const colMap : number[] = [6, 0, 7, 9, 10, -1, -1, 13] // from Index => map[Index]
-const reverseMap : number[] = [8, -1, -1, -1, -1, -1, 4, 5, -1, 1, 4, -1, -1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 7]
+const reverseMap : number[] = [8, -1, -1, -1, -1, -1, 4, 5, -1, 1, -1, -1, -1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 7]
 const tagsSource : string[] = ['Sollkonto', 'Betrag', 'Habenkonto', 'Belegdatum', 'Belegnummer', 'Steuercode', 'Steuerart', 'Kost 1', 'Kost 2']
 const tagsTarget : string[] = ['Umsatz', 'Soll/Haben', 'leer', 'leer', 'leer', 'leer', 'Konto', 'Gegenkonto', 'leer', 'Belegdatum', 'Belegfeld 1', 'Belegfeld 2', 'leer', 'Buchungstext']
 console.log(reverseMap.length)
@@ -28,6 +28,16 @@ let init = function(){
             return sollHaben(intermediateArr, 1, 0)
         }).then(function(resultArr) {
             return colSwap(resultArr, reverseMap)
+        }).then(function(arr2d){
+            let temparr = arr2d.slice(2, -1)
+            temparr.forEach( el => {
+                el[4] = el[4].slice(0,-1)
+                el[5] = el[5].slice(0,-1)
+                el[4] = el[7].length > 2 ? 'S'+el[4] : el[4]
+                el[5] = el[7].length > 2 ? 'S'+el[5] : el[5]
+            })
+            console.log(temparr)
+            return temparr
         }).then(function (arr2d) {
             return csvArray(arr2d)
         }).then(function(csvArr){

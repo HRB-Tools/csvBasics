@@ -25,9 +25,9 @@ let init = function(){
     btn1.addEventListener('mousedown', function (){
         text = fileresult();
         text.then(function(csvFile) {
-            console.log(csvFile)
             return resultArray(csvFile)
         }).then(function(intermediateArr){
+            year = intermediateArr[0][12].slice(0,4)
             return sollHaben(intermediateArr, 1, 0)
         }).then(function(resultArr) {
             return colSwap(resultArr, reverseMap)
@@ -43,7 +43,6 @@ let init = function(){
                 el[0] = el[1]
             })
             temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag'])
-            console.log(temparr)
             return temparr
         }).then(function (arr2d) {
             return csvArray(arr2d)

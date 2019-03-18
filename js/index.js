@@ -34,6 +34,7 @@ let init = function () {
                 el[4] = el[7].length > 2 ? 'S' + el[4] : el[4];
                 el[5] = el[7].length > 2 ? 'S' + el[5] : el[5];
             });
+            temparr.unshift('Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag');
             console.log(temparr);
             return temparr;
         }).then(function (arr2d) {

@@ -35,6 +35,7 @@ let init = function(){
                 el[5] = el[5].slice(0,-1)
                 el[4] = el[7].length > 2 ? 'S'+el[4] : el[4]
                 el[5] = el[7].length > 2 ? 'S'+el[5] : el[5]
+                el[3] = 'Lohnbuchungen'
             })
             temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag'])
             console.log(temparr)

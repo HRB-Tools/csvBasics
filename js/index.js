@@ -2,7 +2,8 @@ import { fileresult } from './fileio';
 import { csvArray, resultArray } from './csv';
 import { filedownload } from './filedownload';
 import { colSwap } from './colswap';
-import { sollHaben } from "./sh";
+import { sollHaben } from './sh';
+import { datum } from './date';
 // Init when document is loaded
 document.onreadystatechange = function () {
     if (document.readyState == 'complete') {
@@ -13,6 +14,7 @@ const colMap = [6, 0, 7, 9, 10, -1, -1, 13]; // from Index => map[Index]
 const reverseMap = [8, -1, -1, -1, -1, -1, 4, 5, -1, 1, -1, -1, -1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 7];
 const tagsSource = ['Sollkonto', 'Betrag', 'Habenkonto', 'Belegdatum', 'Belegnummer', 'Steuercode', 'Steuerart', 'Kost 1', 'Kost 2'];
 const tagsTarget = ['Umsatz', 'Soll/Haben', 'leer', 'leer', 'leer', 'leer', 'Konto', 'Gegenkonto', 'leer', 'Belegdatum', 'Belegfeld 1', 'Belegfeld 2', 'leer', 'Buchungstext'];
+let year = '2019';
 console.log(reverseMap.length);
 let init = function () {
     let text;
@@ -21,6 +23,7 @@ let init = function () {
     btn1.addEventListener('mousedown', function () {
         text = fileresult();
         text.then(function (csvFile) {
+            console.log(csvFile);
             return resultArray(csvFile);
         }).then(function (intermediateArr) {
             return sollHaben(intermediateArr, 1, 0);
@@ -31,9 +34,11 @@ let init = function () {
             temparr.forEach(el => {
                 el[4] = el[4].slice(0, -1);
                 el[5] = el[5].slice(0, -1);
-                el[4] = el[7].length > 2 ? 'S' + el[4] : el[4];
-                el[5] = el[7].length > 2 ? 'S' + el[5] : el[5];
+                el[4] = 'S' + el[4];
+                el[5] = 'S' + el[5];
                 el[3] = 'Lohnbuchungen';
+                el[1] = datum(el[1], year);
+                el[0] = el[1];
             });
             temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag']);
             console.log(temparr);

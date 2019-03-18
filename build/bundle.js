@@ -73,6 +73,13 @@
         return arr;
     }
 
+    const datum = function dateFormat(dateValue, year) {
+        let val = ('0' + dateValue).slice(-4);
+        let month = parseInt(val.slice(-2)) > 9 ? val.slice(-2) : val.slice(-1), day = parseInt(val.slice(0, 2)) > 9 ? val.slice(0, 2) : val.slice(1, 2);
+        let str = `${month}/${day}/${year}`;
+        return str;
+    };
+
     // Init when document is loaded
     document.onreadystatechange = function () {
         if (document.readyState == 'complete') {
@@ -80,6 +87,7 @@
         }
     };
     const reverseMap = [8, -1, -1, -1, -1, -1, 4, 5, -1, 1, -1, -1, -1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 7];
+    let year = '2019';
     console.log(reverseMap.length);
     let init = function () {
         let text;
@@ -88,6 +96,7 @@
         btn1.addEventListener('mousedown', function () {
             text = fileresult();
             text.then(function (csvFile) {
+                console.log(csvFile);
                 return resultArray(csvFile);
             }).then(function (intermediateArr) {
                 return sollHaben(intermediateArr, 1, 0);
@@ -98,9 +107,11 @@
                 temparr.forEach(el => {
                     el[4] = el[4].slice(0, -1);
                     el[5] = el[5].slice(0, -1);
-                    el[4] = el[7].length > 2 ? 'S' + el[4] : el[4];
-                    el[5] = el[7].length > 2 ? 'S' + el[5] : el[5];
+                    el[4] = 'S' + el[4];
+                    el[5] = 'S' + el[5];
                     el[3] = 'Lohnbuchungen';
+                    el[1] = datum(el[1], year);
+                    el[0] = el[1];
                 });
                 temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag']);
                 console.log(temparr);

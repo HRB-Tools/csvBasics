@@ -31,6 +31,11 @@
         }
         return arr;
     };
+    const csvArray = function (arr) {
+        let csvArray = [];
+        arr.forEach(element => csvArray.push(element.join(';')));
+        return csvArray.join('\n');
+    };
 
     // TSV Splitter -> returns a two dimensional array
     const tsvArray = function (arr) {
@@ -94,7 +99,7 @@
     let init = function () {
         let text;
         // Adds EventListeners to each item
-        let btn1 = document.querySelector('ul .nav');
+        let btn1 = document.querySelector('#tsv');
         btn1.addEventListener('mousedown', function () {
             text = fileresult();
             text.then(function (csvFile) {
@@ -121,6 +126,35 @@
                 return tsvArray(arr2d);
             }).then(function (tsvArr) {
                 filedownload(tsvArr, `DTVF_${new Date().getFullYear()}_${('00' + (new Date().getMonth() + 1)).slice(-2)}${('00' + new Date().getDate()).slice(-2)}.tsv`);
+            });
+        });
+        let btn2 = document.querySelector('#csv');
+        btn2.addEventListener('mousedown', function () {
+            text = fileresult();
+            text.then(function (csvFile) {
+                return resultArray(csvFile);
+            }).then(function (intermediateArr) {
+                year = intermediateArr[0][12].slice(0, 4);
+                return sollHaben(intermediateArr, 1, 0);
+            }).then(function (resultArr$$1) {
+                return colSwap(resultArr$$1, reverseMap);
+            }).then(function (arr2d) {
+                let temparr = arr2d.slice(2, -1);
+                temparr.forEach(el => {
+                    el[4] = el[4].slice(0, -1);
+                    el[5] = el[5].slice(0, -1);
+                    el[4] = 'S' + el[4];
+                    el[5] = 'S' + el[5];
+                    el[3] = 'Lohnbuchungen';
+                    el[1] = datum(el[1], year);
+                    el[0] = el[1];
+                });
+                temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag']);
+                return temparr;
+            }).then(function (arr2d) {
+                return csvArray(arr2d);
+            }).then(function (csvArr) {
+                filedownload(csvArr, `DTVF_${new Date().getFullYear()}_${('00' + (new Date().getMonth() + 1)).slice(-2)}${('00' + new Date().getDate()).slice(-2)}.csv`);
             });
         });
     };

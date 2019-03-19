@@ -57,9 +57,4 @@ let init = function () {
         });
     });
 };
-// .then(function (arr2d) {
-//     let information = classify(arr2d);
-//     console.log(information);
-//     return arr2d;
-// })
 //# sourceMappingURL=index.js.map

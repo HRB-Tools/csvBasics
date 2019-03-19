@@ -87,6 +87,21 @@
         return str;
     };
 
+    const lohn = function (arr, year) {
+        let temparr = arr.slice(2, -1);
+        temparr.forEach(el => {
+            el[4] = el[4].slice(0, -1);
+            el[5] = el[5].slice(0, -1);
+            el[4] = 'S' + el[4];
+            el[5] = 'S' + el[5];
+            el[3] = 'Lohnbuchungen';
+            el[1] = datum(el[1], year);
+            el[0] = el[1];
+        });
+        temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag']);
+        return temparr;
+    };
+
     // Init when document is loaded
     document.onreadystatechange = function () {
         if (document.readyState == 'complete') {
@@ -110,18 +125,7 @@
             }).then(function (resultArr$$1) {
                 return colSwap(resultArr$$1, reverseMap);
             }).then(function (arr2d) {
-                let temparr = arr2d.slice(2, -1);
-                temparr.forEach(el => {
-                    el[4] = el[4].slice(0, -1);
-                    el[5] = el[5].slice(0, -1);
-                    el[4] = 'S' + el[4];
-                    el[5] = 'S' + el[5];
-                    el[3] = 'Lohnbuchungen';
-                    el[1] = datum(el[1], year);
-                    el[0] = el[1];
-                });
-                temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag']);
-                return temparr;
+                return lohn(arr2d, year);
             }).then(function (arr2d) {
                 return tsvArray(arr2d);
             }).then(function (tsvArr) {
@@ -139,18 +143,7 @@
             }).then(function (resultArr$$1) {
                 return colSwap(resultArr$$1, reverseMap);
             }).then(function (arr2d) {
-                let temparr = arr2d.slice(2, -1);
-                temparr.forEach(el => {
-                    el[4] = el[4].slice(0, -1);
-                    el[5] = el[5].slice(0, -1);
-                    el[4] = 'S' + el[4];
-                    el[5] = 'S' + el[5];
-                    el[3] = 'Lohnbuchungen';
-                    el[1] = datum(el[1], year);
-                    el[0] = el[1];
-                });
-                temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag']);
-                return temparr;
+                return lohn(arr2d, year);
             }).then(function (arr2d) {
                 return csvArray(arr2d);
             }).then(function (csvArr) {

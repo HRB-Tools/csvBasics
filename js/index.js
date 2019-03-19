@@ -1,5 +1,6 @@
 import { fileresult } from './fileio';
-import { csvArray, resultArray } from './csv';
+import { resultArray } from './csv';
+import { tsvArray } from './tsv';
 import { filedownload } from './filedownload';
 import { colSwap } from './colswap';
 import { sollHaben } from './sh';
@@ -43,9 +44,9 @@ let init = function () {
             temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag']);
             return temparr;
         }).then(function (arr2d) {
-            return csvArray(arr2d);
-        }).then(function (csvArr) {
-            filedownload(csvArr, `DTVF_${new Date().getFullYear()}_${('00' + (new Date().getMonth() + 1)).slice(-2)}${('00' + new Date().getDate()).slice(-2)}.csv`);
+            return tsvArray(arr2d);
+        }).then(function (tsvArr) {
+            filedownload(tsvArr, `DTVF_${new Date().getFullYear()}_${('00' + (new Date().getMonth() + 1)).slice(-2)}${('00' + new Date().getDate()).slice(-2)}.tsv`);
         });
     });
 };

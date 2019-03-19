@@ -31,10 +31,12 @@
         }
         return arr;
     };
-    const csvArray = function (arr) {
-        let csvArray = [];
-        arr.forEach(element => csvArray.push(element.join(';')));
-        return csvArray.join('\n');
+
+    // TSV Splitter -> returns a two dimensional array
+    const tsvArray = function (arr) {
+        let tsvArr = [];
+        arr.forEach(element => tsvArr.push(element.join('\t')));
+        return tsvArr.join('\n');
     };
 
     const filedownload = function (arr, filename) {
@@ -100,8 +102,8 @@
             }).then(function (intermediateArr) {
                 year = intermediateArr[0][12].slice(0, 4);
                 return sollHaben(intermediateArr, 1, 0);
-            }).then(function (resultArr) {
-                return colSwap(resultArr, reverseMap);
+            }).then(function (resultArr$$1) {
+                return colSwap(resultArr$$1, reverseMap);
             }).then(function (arr2d) {
                 let temparr = arr2d.slice(2, -1);
                 temparr.forEach(el => {
@@ -116,9 +118,9 @@
                 temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag']);
                 return temparr;
             }).then(function (arr2d) {
-                return csvArray(arr2d);
-            }).then(function (csvArr) {
-                filedownload(csvArr, `DTVF_${new Date().getFullYear()}_${('00' + (new Date().getMonth() + 1)).slice(-2)}${('00' + new Date().getDate()).slice(-2)}.csv`);
+                return tsvArray(arr2d);
+            }).then(function (tsvArr) {
+                filedownload(tsvArr, `DTVF_${new Date().getFullYear()}_${('00' + (new Date().getMonth() + 1)).slice(-2)}${('00' + new Date().getDate()).slice(-2)}.tsv`);
             });
         });
     };

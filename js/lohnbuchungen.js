@@ -6,7 +6,7 @@ export const lohn = function (arr, year) {
         el[5] = el[5].slice(0, -1);
         el[4] = 'S' + el[4];
         el[5] = 'S' + el[5];
-        el[3] = 'Lohnbuchungen';
+        el[3] = 1;
         el[1] = datum(el[1], year);
         el[0] = el[1];
     });

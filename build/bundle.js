@@ -2,13 +2,13 @@
     'use strict';
 
     // Creates a File Input element, activates it and returns the result if nonempty
-    const fileresult = function () {
+    const fileresult = function (encode) {
         return new Promise(function (resolve, reject) {
             let fileInput = document.createElement('input'), reader = new FileReader();
             fileInput.setAttribute('type', 'file');
             fileInput.style.display = 'none';
             document.body.appendChild(fileInput);
-            fileInput.addEventListener('change', function () { reader.readAsText(this.files[0]); });
+            fileInput.addEventListener('change', function () { reader.readAsText(this.files[0], encode); });
             reader.addEventListener('loadend', function () {
                 if (this.result !== '') {
                     resolve(this.result);
@@ -94,7 +94,7 @@
             el[5] = el[5].slice(0, -1);
             el[4] = 'S' + el[4];
             el[5] = 'S' + el[5];
-            el[3] = 'Lohnbuchungen';
+            el[3] = 1;
             el[1] = datum(el[1], year);
             el[0] = el[1];
         });
@@ -116,7 +116,7 @@
         // Adds EventListeners to each item
         let btn1 = document.querySelector('#tsv');
         btn1.addEventListener('mousedown', function () {
-            text = fileresult();
+            text = fileresult('ISO-8859-1');
             text.then(function (csvFile) {
                 return resultArray(csvFile);
             }).then(function (intermediateArr) {
@@ -134,7 +134,7 @@
         });
         let btn2 = document.querySelector('#csv');
         btn2.addEventListener('mousedown', function () {
-            text = fileresult();
+            text = fileresult('ISO-8859-1');
             text.then(function (csvFile) {
                 return resultArray(csvFile);
             }).then(function (intermediateArr) {

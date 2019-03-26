@@ -22,7 +22,7 @@ let init = function () {
     // Adds EventListeners to each item
     let btn1 = document.querySelector('#tsv');
     btn1.addEventListener('mousedown', function () {
-        text = fileresult();
+        text = fileresult('ISO-8859-1');
         text.then(function (csvFile) {
             return resultArray(csvFile);
         }).then(function (intermediateArr) {
@@ -40,7 +40,7 @@ let init = function () {
     });
     let btn2 = document.querySelector('#csv');
     btn2.addEventListener('mousedown', function () {
-        text = fileresult();
+        text = fileresult('ISO-8859-1');
         text.then(function (csvFile) {
             return resultArray(csvFile);
         }).then(function (intermediateArr) {

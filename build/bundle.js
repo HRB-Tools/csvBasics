@@ -98,7 +98,7 @@
             el[1] = datum(el[1], year);
             el[0] = el[1];
         });
-        temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag']);
+        temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag', 'Belegnummer']);
         return temparr;
     };
 
@@ -125,7 +125,7 @@
             }).then(function (resultArr$$1) {
                 return colSwap(resultArr$$1, reverseMap);
             }).then(function (arr2d) {
-                return lohn(arr2d, year);
+                return lohn(arr2d, year).map((el, idx) => el.concat([, , , idx]));
             }).then(function (arr2d) {
                 return tsvArray(arr2d);
             }).then(function (tsvArr) {
@@ -143,7 +143,7 @@
             }).then(function (resultArr$$1) {
                 return colSwap(resultArr$$1, reverseMap);
             }).then(function (arr2d) {
-                return lohn(arr2d, year);
+                return lohn(arr2d, year).map((el, idx) => el.concat([, , , idx]));
             }).then(function (arr2d) {
                 return csvArray(arr2d);
             }).then(function (csvArr) {

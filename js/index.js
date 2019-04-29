@@ -31,7 +31,7 @@ let init = function () {
         }).then(function (resultArr) {
             return colSwap(resultArr, reverseMap);
         }).then(function (arr2d) {
-            return lohn(arr2d, year);
+            return lohn(arr2d, year).map((el, idx) => el.concat([, , , idx]));
         }).then(function (arr2d) {
             return tsvArray(arr2d);
         }).then(function (tsvArr) {
@@ -49,7 +49,7 @@ let init = function () {
         }).then(function (resultArr) {
             return colSwap(resultArr, reverseMap);
         }).then(function (arr2d) {
-            return lohn(arr2d, year);
+            return lohn(arr2d, year).map((el, idx) => el.concat([, , , idx]));
         }).then(function (arr2d) {
             return csvArray(arr2d);
         }).then(function (csvArr) {

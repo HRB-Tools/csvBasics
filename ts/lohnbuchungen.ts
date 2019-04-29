@@ -11,6 +11,6 @@ export const lohn = function(arr, year){
         el[1] = datum(el[1], year)
         el[0] = el[1]
     })
-    temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Soll-Konto', 'Habenkonto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag', 'Belegnummer'])
+    temparr.unshift(['Buchungsdatum', 'Belegdatum', 'Buchungstext', 'Buchungskreis', 'Habenkonto', 'Soll-Konto', 'Kostenstelle', 'Kostenträger', 'Umsatz', 'Steuerart', 'Steuercode', 'Steuerbetrag', 'Belegnummer'])
     return temparr
 }

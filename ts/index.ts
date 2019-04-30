@@ -19,7 +19,7 @@ const reverseMap : number[] = [8, -1, -1, -1, -1, -1, 5, 4, -1, 1, -1, -1, -1, 2
 const tagsSource : string[] = ['Sollkonto', 'Betrag', 'Habenkonto', 'Belegdatum', 'Belegnummer', 'Steuercode', 'Steuerart', 'Kost 1', 'Kost 2']
 const tagsTarget : string[] = ['Umsatz', 'Soll/Haben', 'leer', 'leer', 'leer', 'leer', 'Konto', 'Gegenkonto', 'leer', 'Belegdatum', 'Belegfeld 1', 'Belegfeld 2', 'leer', 'Buchungstext']
 let year = '2019'
-console.log(reverseMap.length)
+let mandantennummer = 0, yearMonth = 0
 let init = function(){
     let text;
     // Adds EventListeners to each item
@@ -29,16 +29,29 @@ let init = function(){
         text.then(function(csvFile) {
             return resultArray(csvFile)
         }).then(function(intermediateArr){
-            year = intermediateArr[0][12].slice(0,4)
-            return sollHaben(intermediateArr, 1, 0)
-        }).then(function(resultArr) {
-            return colSwap(resultArr, reverseMap)
-        }).then(function(arr2d){
-            return lohn(arr2d, year).map((el, idx) => el.concat([, , , idx]))
-        }).then(function (arr2d) {
-            return tsvArray(arr2d)
-        }).then(function(tsvArr){
-            filedownload(tsvArr, `DTVF_${new Date().getFullYear()}_${('00' + (new Date().getMonth()+1)).slice(-2)}${('00' + new Date().getDate()).slice(-2)}.tsv`)
+            return {
+                arr: sollHaben(intermediateArr, 1, 0),
+                filename: `EXTF_${intermediateArr[0][11]}_${intermediateArr[0][14].slice(0, 6)}.tsv`,
+                year: intermediateArr[0][13]
+            }
+        }).then(function (result) {
+            return {
+                arr: colSwap(result.arr, reverseMap),
+                filename: result.filename,
+                year: year
+            }
+        }).then(function (result) {
+            return {
+                arr: lohn(result.arr, result.year).map((el, idx) => el.concat([, , , idx])),
+                filename: result.filename
+            }
+        }).then(function (result) {
+            return {
+                arr: tsvArray(result.arr),
+                filename: result.filename
+            }
+        }).then(function (result) {
+            filedownload(result.arr, result.filename)
         })
     });
     let btn2 = document.querySelector('#csv');
@@ -47,17 +60,29 @@ let init = function(){
         text.then(function(csvFile) {
             return resultArray(csvFile)
         }).then(function(intermediateArr){
-            year = intermediateArr[0][12].slice(0,4)
-            return sollHaben(intermediateArr, 1, 0)
-        }).then(function(resultArr) {
-            return colSwap(resultArr, reverseMap)
-        }).then(function(arr2d){
-            return lohn(arr2d, year).map((el, idx) => el.concat([, , , idx]))
-        }).then(function (arr2d) {
-            return csvArray(arr2d)
-        }).then(function(csvArr){
-            filedownload(csvArr, `DTVF_${new Date().getFullYear()}_${('00' + (new Date().getMonth()+1)).slice(-2)}${('00' + new Date().getDate()).slice(-2)}.csv`)
+            return {
+                arr: sollHaben(intermediateArr, 1, 0),
+                filename: `EXTF_${intermediateArr[0][11]}_${intermediateArr[0][14].slice(0, 6)}.csv`,
+                year: intermediateArr[0][13]
+            }
+        }).then(function (result) {
+            return {
+                arr: colSwap(result.arr, reverseMap),
+                filename: result.filename,
+                year: year,
+            }
+        }).then(function (result) {
+            return {
+                arr: lohn(result.arr, result.year).map((el, idx) => el.concat([, , , idx])),
+                filename: result.filename
+            }
+        }).then(function (result) {
+            return {
+                arr: csvArray(result.arr),
+                filename: result.filename
+            }
+        }).then(function (result) {
+            filedownload(result.arr, result.filename)
         })
     });
-
 };
